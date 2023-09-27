@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted } from "vue";
 import DefaultLayout from "@/components/layout/DefaultLayout.vue";
+import "element-plus/dist/index.css";
 
 import { useAuth } from "@/store/auth";
 

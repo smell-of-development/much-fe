@@ -29,7 +29,7 @@ export const useAuth = defineStore(
     return { userData, setUserData, auth, setAuth, isLoggedIn };
   },
   {
-    paths: [userData, auth, isLoggedIn],
+    paths: ["userData", "auth", "isLoggedIn"],
     persist: true,
     storage: sessionStorage,
   }
