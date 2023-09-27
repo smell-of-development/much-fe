@@ -15,6 +15,9 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  label: {
+    type: String,
+  },
 });
 
 const emit = defineEmits(["input", "blur", "click", "focus"]);
@@ -40,19 +43,30 @@ const styleComputed = computed(() => {
 });
 </script>
 <template>
-  <input
-    class="baseinput"
-    v-model="modelValue"
-    :placeholder="placeholder"
-    :style="styleComputed"
-    :type="type"
-    @input="onInput"
-    @blur="onBlur"
-    @click="onClick"
-    @focus="onFocus"
-  />
+  <div class="wrap">
+    <label v-if="label">{{ label }} </label>
+    <input
+      class="baseinput"
+      v-model="modelValue"
+      :placeholder="placeholder"
+      :style="styleComputed"
+      :type="type"
+      @input="onInput"
+      @blur="onBlur"
+      @click="onClick"
+      @focus="onFocus"
+    />
+  </div>
 </template>
 <style scoped lang="scss">
+.wrap {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+label {
+  font-size: 14px;
+}
 .baseinput {
   width: 100%;
   height: 40px;

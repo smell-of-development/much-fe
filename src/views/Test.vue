@@ -15,10 +15,10 @@ import test1 from "@/assets/image/test.png";
     <BaseButton class="pink">이것</BaseButton>
   </div>
   <div style="margin: 20px">
-    <BaseInput />
+    <BaseInput :label="'아이디'" />
   </div>
   <div style="margin: 20px">
-    <BaseInputSubmit />
+    <BaseInputSubmit :label="'비밀번호'" :btnLabel="'확인'" />
   </div>
   <div style="margin: 20px">
     <BaseCard :bg="test1" />
