@@ -1,9 +1,7 @@
-<script setup>
-import { BaseCard } from "@/components/base";
-</script>
+<script setup></script>
 <template>
   <section>
-    <BaseCard v-for="(item, index) in [1, 2, 3, 4, 5, 6, 7, 8]" :key="index" />
+    <slot />
   </section>
 </template>
 <style scoped lang="scss">

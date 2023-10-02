@@ -9,7 +9,6 @@ const props = defineProps({
   },
   width: {
     type: Number,
-    default: 360,
   },
   placeholder: {
     type: String,
@@ -17,6 +16,9 @@ const props = defineProps({
   },
   label: {
     type: String,
+  },
+  maxLength: {
+    type: Number,
   },
 });
 
@@ -50,6 +52,7 @@ const styleComputed = computed(() => {
       v-model="modelValue"
       :placeholder="placeholder"
       :style="styleComputed"
+      :maxlength="maxLength"
       :type="type"
       @input="onInput"
       @blur="onBlur"
@@ -72,11 +75,12 @@ label {
   height: 40px;
   padding: 0 10px;
   border-radius: 3px;
-  border: 1px solid var(--border-gray);
-  transition: border 0.3s;
+  border: none;
+  box-shadow: 0 0 0 1px inset var(--border-gray);
+  transition: box-shadow 0.3s;
   &:focus {
     outline: none;
-    border: 1px solid var(--color-main);
+    box-shadow: 0 0 0 1px inset var(--color-main);
   }
   &::placeholder {
     color: var(--border-gray);

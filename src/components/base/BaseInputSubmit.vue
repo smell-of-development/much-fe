@@ -15,6 +15,19 @@ const props = defineProps({
   label: {
     type: String,
   },
+  btnClass: {
+    default: "purple",
+  },
+  placeholder: {
+    type: String,
+  },
+  type: {
+    type: String,
+    default: "text",
+  },
+  maxLength: {
+    type: Number,
+  },
 });
 const emit = defineEmits(["click"]);
 
@@ -24,8 +37,15 @@ const styleComputed = computed(() => {
 </script>
 <template>
   <div class="inputbtn-wrapper" :style="styleComputed">
-    <BaseInput v-model="modelValue" :label="label" :width="240" />
-    <BaseButton class="purple" :width="110" @click="emit('click')">{{
+    <BaseInput
+      v-model="modelValue"
+      :label="label"
+      :placeholder="placeholder"
+      :width="240"
+      :type="type"
+      :maxLength="maxLength"
+    />
+    <BaseButton :class="btnClass" :width="110" @click="emit('click')">{{
       btnLabel
     }}</BaseButton>
   </div>

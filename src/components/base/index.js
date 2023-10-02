@@ -4,6 +4,7 @@ import BaseInputSubmit from "@/components/base/BaseInputSubmit.vue";
 import BaseCard from "@/components/base/BaseCard.vue";
 import BaseSelect from "@/components/base/BaseSelect.vue";
 import BaseInputTag from "@/components/base/BaseInputTag.vue";
+import BaseInputSelect from "@/components/base/BaseInputSelect.vue";
 
 export {
   BaseButton,
@@ -12,4 +13,5 @@ export {
   BaseCard,
   BaseSelect,
   BaseInputTag,
+  BaseInputSelect,
 };

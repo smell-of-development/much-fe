@@ -40,6 +40,9 @@ const styleComputed = computed(() => {
     <ElSelect
       v-model="modelValue"
       class="baseselect"
+      allow-create
+      default-first-option
+      filterable
       :style="styleComputed"
       :placeholder="placeholder"
       size="large"

@@ -6,13 +6,14 @@ import {
   BaseCard,
   BaseSelect,
   BaseInputTag,
+  BaseInputSelect,
 } from "@/components/base";
-import Grid from "../components/layout/Grid.vue";
+import Grid from "@/components/layout/Grid.vue";
 import test1 from "@/assets/image/test.png";
 </script>
 <template>
   <div style="margin: 20px">
-    <BaseButton class="pink">이것</BaseButton>
+    <BaseButton class="pink">버튼</BaseButton>
   </div>
   <div style="margin: 20px">
     <BaseInput :label="'아이디'" />
@@ -21,16 +22,27 @@ import test1 from "@/assets/image/test.png";
     <BaseInputSubmit :label="'비밀번호'" :btnLabel="'확인'" />
   </div>
   <div style="margin: 20px">
-    <BaseCard :bg="test1" />
-  </div>
-  <div style="margin: 20px">
+    일반 셀렉트 박스
     <BaseSelect />
   </div>
   <div style="margin: 20px">
-    <Grid />
+    입력 가능한 셀렉트 박스
+    <BaseInputSelect />
   </div>
   <div style="margin: 20px">
+    태그 입력
     <BaseInputTag />
+  </div>
+  <div style="margin: 20px">
+    <BaseCard :bg="test1" />
+  </div>
+  <div style="margin: 20px">
+    <Grid>
+      <BaseCard
+        v-for="(item, index) in [1, 2, 3, 4, 5, 6, 7, 8]"
+        :key="index"
+      />
+    </Grid>
   </div>
 </template>
 <style lang="scss" scoped></style>
