@@ -6,11 +6,11 @@ import Header from "@/components/layout/Header.vue";
 import Footer from "@/components/layout/Footer.vue";
 import Alert from "@/components/layout/Alert.vue";
 
-import { useLoading } from "@/store/loading";
-import { useError } from "@/store/error";
+import { useLoadingStore } from "@/store/loading";
+import { useErrorStore } from "@/store/error";
 
-const { isLoading } = useLoading();
-const { isError } = useError();
+const { isLoading } = useLoadingStore();
+const { isError } = useErrorStore();
 // const {alert}
 </script>
 <template>

@@ -1,12 +1,11 @@
 <script setup>
 import { computed } from "vue";
 
+/**
+ * ex.
+ * <BaseButton :class="'black'">label</BaseButton>
+ */
 const props = defineProps({
-  theme: {
-    type: String,
-    // pink, white, black
-    default: "pink",
-  },
   width: {
     type: Number,
     default: 300,

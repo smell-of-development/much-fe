@@ -5,7 +5,6 @@ import { ElSelect, ElOption } from "element-plus";
 const props = defineProps({
   width: {
     type: Number,
-    default: 360,
   },
   placeholder: {
     type: String,
@@ -72,7 +71,7 @@ label {
   }
 }
 
-:deep {
+:deep() {
   .el-input__wrapper {
     transition: box-shadow 0.3s;
     box-shadow: 0 0 0 1px inset var(--border-gray);

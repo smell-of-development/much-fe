@@ -258,6 +258,7 @@ function cardHandler() {
   overflow: hidden;
   cursor: pointer;
   &--bg {
+    width: 300px;
     height: 200px;
     object-fit: cover;
     object-position: 50% 50%;

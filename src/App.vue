@@ -3,9 +3,11 @@ import { onMounted } from "vue";
 import DefaultLayout from "@/components/layout/DefaultLayout.vue";
 import "element-plus/dist/index.css";
 
-import { useAuth } from "@/store/auth";
+// import { useAuthStore } from "@/store/auth";
+// import { useLoadingStore } from "@/store/loading";
 
-const { userData, auth, setAuth, setUserData } = useAuth();
+// const authStore = useAuthStore();
+// const loadingStore = useLoadingStore();
 
 onMounted(() => {});
 
@@ -24,6 +26,9 @@ create();
   <div>
     <DefaultLayout />
   </div>
-</template>
 
+  <!-- <template v-if="loadingStore.loadingCount > 0">
+    <Loading :isLoading="loadingStore.loadingCount > 0" />
+  </template> -->
+</template>
 <style scoped></style>

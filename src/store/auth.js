@@ -1,36 +1,68 @@
-import { ref, reactive } from "vue";
+import { ref, reactive, computed } from "vue";
 import { defineStore } from "pinia";
+import { decodeToken } from "@/utils/token";
 
-export const useAuth = defineStore(
+export const useAuthStore = defineStore(
   "auth",
   () => {
-    const isLoggedIn = ref(false);
     const userData = reactive({
       username: "",
       profile: "",
     });
 
-    const auth = reactive({
+    const token = reactive({
       access: "",
       refresh: "",
     });
 
-    function setUserData(token) {
-      // TODO :: decoding
+    async function login(token) {
+      token.access = token.access;
+      token.refresh = token.refresh;
     }
 
-    function setAuth() {
-      const auth = localStorage.getItem("auth");
-      const { access, refresh } = auth;
-      auth.access = access;
-      auth.refresh = refresh;
+    function clearLocalStorage() {
+      localStorage.removeItem("auth");
     }
 
-    return { userData, setUserData, auth, setAuth, isLoggedIn };
+    function logout() {
+      clearLocalStorage();
+    }
+
+    async function getUserInfo() {
+      if (token.access) {
+        const decodeData = await decodeToken(token.access);
+        Object.entries(JSON.parse(decodeData.user)).forEach(([key, value]) => {
+          // if(key === '') {
+          // }
+        });
+      }
+    }
+
+    const isLoggedIn = computed(() => {
+      return userData.username !== "";
+    });
+
+    function isMine(id) {
+      return id === userData.username;
+    }
+
+    return {
+      userData,
+      token,
+      login,
+      clearLocalStorage,
+      logout,
+      getUserInfo,
+      isLoggedIn,
+      isMine,
+    };
   },
   {
-    paths: ["userData", "auth", "isLoggedIn"],
-    persist: true,
-    storage: sessionStorage,
+    persist: [
+      {
+        paths: ["token"],
+        storage: sessionStorage,
+      },
+    ],
   }
 );

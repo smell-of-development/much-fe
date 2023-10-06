@@ -1,12 +1,13 @@
 <script setup>
 import { computed, ref, watchEffect } from "vue";
-import { useAuth } from "@/store/auth";
+import { useAuthStore } from "@/store/auth";
 import { useRoute, useRouter } from "vue-router";
 import { debounce } from "lodash";
 
 import logo from "@/assets/icon/logo.svg";
 
-const { isLoggedIn } = useAuth();
+const authStore = useAuthStore();
+const { isLoggedIn } = authStore;
 const router = useRouter();
 const route = useRoute();
 
@@ -110,7 +111,7 @@ $default-font-size: 18px;
 
 .header {
   width: 100%;
-  min-width: 800px;
+  min-width: 640px;
   height: 70px;
   display: flex;
   align-items: center;

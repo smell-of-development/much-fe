@@ -1,12 +1,16 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 
-export const useError = defineStore("error", () => {
-  const isError = ref(false);
+export const useErrorStore = defineStore("error", () => {
+  const error = ref(null);
 
-  function handleError(value) {
-    isLoading.value = value;
+  function setError(err) {
+    error.value = err;
   }
 
-  return { isError, handleError };
+  function clearError() {
+    error.value = null;
+  }
+
+  return { error, setError, clearError };
 });

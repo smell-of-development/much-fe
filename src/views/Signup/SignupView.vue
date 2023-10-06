@@ -7,7 +7,7 @@ import {
   BaseInputSelect,
 } from "@/components/base";
 
-import { onlyNumber, phoneNumber } from "@/plugin/common";
+import { formattedPhoneNumber, onlyNumber } from "@/utils/common";
 
 const { errorMessage, inputValues, checkNickname, checkId, submitSignup } =
   signupValueControl();
@@ -95,7 +95,7 @@ function checkPhoneNumber() {
 
   function handlePhoneNumber() {
     requestAnimationFrame(() => {
-      inputValues.phoneNum = phoneNumber(inputValues.phoneNum);
+      inputValues.phoneNum = formattedPhoneNumber(inputValues.phoneNum);
     });
   }
 

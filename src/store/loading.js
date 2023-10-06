@@ -1,12 +1,22 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 
-export const useLoading = defineStore("loading", () => {
-  const isLoading = ref(false);
+export const useLoadingStore = defineStore(
+  "loading",
+  () => {
+    const loadingCount = ref(0);
 
-  function handleLoading(value) {
-    isLoading.value = value;
+    function startLoading() {
+      loadingCount.value++;
+    }
+
+    function endLoading() {
+      loadingCount.value--;
+    }
+
+    return { loadingCount, startLoading, endLoading };
+  },
+  {
+    persist: true,
   }
-
-  return { isLoading, handleLoading };
-});
+);
