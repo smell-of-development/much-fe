@@ -1,6 +1,5 @@
 .search {
   width: 90%;
-  min-width: 640px;
   max-width: 843px;
   &--title {
     font-size: 36px;
@@ -95,4 +94,11 @@
   @media (max-width: 1000px) {
     width: 640px;
   }
+}
+
+.bottom {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 50px 0 150px 0;
 }

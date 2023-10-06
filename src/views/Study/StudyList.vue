@@ -53,6 +53,9 @@ import {
       />
     </Grid>
   </article>
+  <div class="bottom">
+    <BaseButton :class="'pink'" :width="100">더보기</BaseButton>
+  </div>
 </template>
 <style scoped lang="scss">
 @import "@/views/Study/style.scss";
