@@ -3,6 +3,7 @@ import { computed, ref, watchEffect } from "vue";
 import { useAuthStore } from "@/store/auth";
 import { useRoute, useRouter } from "vue-router";
 import { debounce } from "lodash";
+import LoginPopup from "@/components/login/popup/LoginPopup.vue";
 
 import logo from "@/assets/icon/logo.svg";
 
@@ -35,6 +36,15 @@ function search() {
   }
 
   return { searchValue, handleSearch };
+}
+const { loginPopup, loginPopupHandler } = loginControl();
+function loginControl() {
+  const loginPopup = ref(false);
+
+  function loginPopupHandler() {
+    loginPopup.value = !loginPopup.value;
+  }
+  return { loginPopup, loginPopupHandler };
 }
 </script>
 <template>
@@ -71,7 +81,7 @@ function search() {
 
     <div class="btn-wrapper">
       <template v-if="!isLoggedIn">
-        <button class="link-btn">로그인</button>
+        <button class="link-btn" @click="loginPopupHandler">로그인</button>
         <button
           class="link-btn"
           :class="{ action: routePath === 'signup' }"
@@ -105,6 +115,9 @@ function search() {
       </template>
     </div>
   </header>
+  <template v-if="loginPopup">
+    <LoginPopup @close="loginPopupHandler" />
+  </template>
 </template>
 <style scoped lang="scss">
 $default-font-size: 18px;

@@ -196,6 +196,7 @@ function login() {
     <div>
       <BaseInputSelect
         v-model="inputValues.position"
+        :width="360"
         :label="'포지션 설정하기 (선택)'"
       />
     </div>
