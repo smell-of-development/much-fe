@@ -170,6 +170,7 @@ function cardHandler() {
           {{ item }}
         </span>
       </template>
+
       <template v-else>
         <span
           class="card__tags--tag"
