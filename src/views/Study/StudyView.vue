@@ -108,10 +108,12 @@ const width = inject("width");
     </article>
 
     <aside class="side">
-      <h3>비슷한 모임 둘러보기</h3>
-      <template v-for="(item, index) in [1, 2, 3]" :key="index">
-        <BaseCard :isSideCard="true" />
-      </template>
+      <h3 class="side__title">비슷한 모임 둘러보기</h3>
+      <div class="side__items">
+        <template v-for="(item, index) in [1, 2, 3]" :key="index">
+          <BaseCard :isSideCard="true" />
+        </template>
+      </div>
     </aside>
   </div>
 </template>

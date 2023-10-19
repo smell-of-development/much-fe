@@ -77,11 +77,34 @@
 }
 
 .side {
-  width: 302px;
   position: sticky;
   top: 20px;
-  & * + * {
-    margin-top: 20px;
+
+  @media (max-width: 1150px) {
+    position: static;
+    margin-top: 100px;
+  }
+
+  &__title {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  &__items {
+    width: 302px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    @media (max-width: 1150px) {
+      width: 100%;
+      flex-direction: row;
+      column-gap: 20px;
+      align-items: start;
+      overflow-x: auto;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
   }
 }
 

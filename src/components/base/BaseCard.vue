@@ -274,6 +274,7 @@ function cardHandler() {
   border: 1px solid var(--border-gray);
   padding: 20px 20px 0 20px;
   overflow: hidden;
+  flex-shrink: 0;
   cursor: pointer;
 
   &.no-image {

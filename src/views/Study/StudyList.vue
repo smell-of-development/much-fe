@@ -7,6 +7,13 @@ import {
   BaseSelect,
   BaseButton,
 } from "@/components/base";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+function goCreate() {
+  router.push({ name: "studyCreate" });
+}
 </script>
 <template>
   <article class="wrapper">
@@ -43,7 +50,9 @@ import {
         </button>
       </div>
       <div class="grid-header--right">
-        <BaseButton :class="'pink'" :width="160">스터디 모집하기</BaseButton>
+        <BaseButton :class="'pink'" :width="160" @click="goCreate"
+          >스터디 모집하기</BaseButton
+        >
       </div>
     </div>
     <Grid>
