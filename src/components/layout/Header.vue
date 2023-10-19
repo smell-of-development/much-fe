@@ -4,6 +4,7 @@ import { useAuthStore } from "@/store/auth";
 import { useRoute, useRouter } from "vue-router";
 import { debounce } from "lodash";
 import LoginPopup from "@/components/login/popup/LoginPopup.vue";
+import BaseUser from "@/components/base/BaseUser.vue";
 
 import logo from "@/assets/icon/logo.svg";
 
@@ -80,7 +81,7 @@ function loginControl() {
     </div>
 
     <div class="btn-wrapper">
-      <template v-if="!isLoggedIn">
+      <template v-if="isLoggedIn">
         <button class="link-btn" @click="loginPopupHandler">로그인</button>
         <button
           class="link-btn"
@@ -108,10 +109,7 @@ function loginControl() {
           </span>
           <span class="alarm--action" />
         </button>
-        <button class="profile" @click="() => gotoPage('mypage')">
-          <img class="profile--img" :src="logo" />
-          <span class="profile--username">user</span>
-        </button>
+        <BaseUser :username="'testuser123'" @click="() => gotoPage('mypage')" />
       </template>
     </div>
   </header>
@@ -123,8 +121,8 @@ function loginControl() {
 $default-font-size: 18px;
 
 .header {
-  width: 100%;
-  min-width: 640px;
+  /* width: 100%; */
+  min-width: 800px;
   height: 70px;
   display: flex;
   align-items: center;
@@ -183,23 +181,6 @@ $default-font-size: 18px;
     background-color: red;
     right: 0;
     top: 0;
-  }
-}
-
-.profile {
-  all: unset;
-  display: flex;
-  align-items: center;
-  column-gap: 5px;
-  cursor: pointer;
-  &--img {
-    width: 45px;
-    height: 45px;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-  &--username {
-    font-size: $default-font-size;
   }
 }
 

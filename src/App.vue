@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from "vue";
+import { onBeforeUnmount, onMounted, ref, provide } from "vue";
 import DefaultLayout from "@/components/layout/DefaultLayout.vue";
 import "element-plus/dist/index.css";
 
@@ -9,7 +9,21 @@ import "element-plus/dist/index.css";
 // const authStore = useAuthStore();
 // const loadingStore = useLoadingStore();
 
-onMounted(() => {});
+const width = ref(1024);
+
+function handleResize(event) {
+  width.value = window.innerWidth;
+}
+
+onMounted(() => {
+  window.addEventListener("resize", handleResize);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", handleResize);
+});
+
+provide("width", width);
 
 function create() {
   // if (localStorage.getItem("auth")) {

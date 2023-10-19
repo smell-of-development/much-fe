@@ -2,10 +2,15 @@
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 
-import test from "@/assets/image/test.jpeg";
-// const props = defineProps({
+import _ from "lodash";
 
-// })
+import test from "@/assets/image/test.jpeg";
+const props = defineProps({
+  isSideCard: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 const router = useRouter();
 
@@ -36,76 +41,80 @@ const dummydata = {
     },
     needs: 4,
     recruited: 2,
-    positionStatus: [
-      {
-        name: "프론트",
-        needs: 1,
-        recruited: 1,
-        state: {
-          code: "DONE",
-          name: "모집완료",
-        },
-      },
-      {
-        name: "백엔드",
-        needs: 2,
-        recruited: 1,
-        state: {
-          code: "RECRUITING",
-          name: "모집중",
-        },
-      },
-      {
-        name: "pm",
-        needs: 1,
-        recruited: 0,
-        state: {
-          code: "RECRUITING",
-          name: "모집중",
-        },
-      },
-      {
-        name: "백엔드",
-        needs: 2,
-        recruited: 1,
-        state: {
-          code: "RECRUITING",
-          name: "모집중",
-        },
-      },
-      {
-        name: "pm",
-        needs: 1,
-        recruited: 0,
-        state: {
-          code: "RECRUITING",
-          name: "모집중",
-        },
-      },
-      {
-        name: "백엔드",
-        needs: 2,
-        recruited: 1,
-        state: {
-          code: "RECRUITING",
-          name: "모집중",
-        },
-      },
-      {
-        name: "pm",
-        needs: 1,
-        recruited: 0,
-        state: {
-          code: "RECRUITING",
-          name: "모집중",
-        },
-      },
-    ],
+    positionStatus: null,
+    //  [
+    //   {
+    //     name: "프론트",
+    //     needs: 1,
+    //     recruited: 1,
+    //     state: {
+    //       code: "DONE",
+    //       name: "모집완료",
+    //     },
+    //   },
+    //   {
+    //     name: "백엔드",
+    //     needs: 2,
+    //     recruited: 1,
+    //     state: {
+    //       code: "RECRUITING",
+    //       name: "모집중",
+    //     },
+    //   },
+    //   {
+    //     name: "pm",
+    //     needs: 1,
+    //     recruited: 0,
+    //     state: {
+    //       code: "RECRUITING",
+    //       name: "모집중",
+    //     },
+    //   },
+    //   {
+    //     name: "백엔드",
+    //     needs: 2,
+    //     recruited: 1,
+    //     state: {
+    //       code: "RECRUITING",
+    //       name: "모집중",
+    //     },
+    //   },
+    //   {
+    //     name: "pm",
+    //     needs: 1,
+    //     recruited: 0,
+    //     state: {
+    //       code: "RECRUITING",
+    //       name: "모집중",
+    //     },
+    //   },
+    //   {
+    //     name: "백엔드",
+    //     needs: 2,
+    //     recruited: 1,
+    //     state: {
+    //       code: "RECRUITING",
+    //       name: "모집중",
+    //     },
+    //   },
+    //   {
+    //     name: "pm",
+    //     needs: 1,
+    //     recruited: 0,
+    //     state: {
+    //       code: "RECRUITING",
+    //       name: "모집중",
+    //     },
+    //   },
+    // ],
   },
 };
 
 const isProject = computed(() => {
-  return dummydata.recruit.positionStatus;
+  if (props.isSideCard) {
+    return false;
+  }
+  return !_.isEmpty(dummydata.recruit.positionStatus);
 });
 
 const { more, positionModal, detailPage } = cardHandler();
@@ -115,24 +124,32 @@ function cardHandler() {
 
   // 카드 클릭시 상세 페이지로 이동
   function detailPage(e) {
-    router.push({ name: "projectDetail", params: { id: 123 } });
+    if (isProject.value) {
+      console.log(isProject.value, "프젝");
+      router.push({ name: "projectDetail", params: { id: 123 } });
+    } else {
+      console.log(isProject.value, "스터디");
+      router.push({ name: "studyDetail", params: { id: 123 } });
+    }
   }
 
   return { more, positionModal, detailPage };
 }
 </script>
 <template>
-  <div class="card" @click="detailPage">
-    <div class="card--dday">D - {{ dummydata.deadlineDDay }}</div>
-    <div class="card--pick" @click.stop="">
-      <span
-        class="material-symbols-outlined"
-        :class="{ action: dummydata.pick }"
-      >
-        bookmark
-      </span>
-    </div>
-    <img class="card--bg" :src="dummydata.imageUrl" />
+  <div class="card" :class="{ 'no-image': isSideCard }" @click="detailPage">
+    <template v-if="!isSideCard">
+      <div class="card--dday">D - {{ dummydata.deadlineDDay }}</div>
+      <div class="card--pick" @click.stop="">
+        <span
+          class="material-symbols-outlined"
+          :class="{ action: dummydata.pick }"
+        >
+          bookmark
+        </span>
+      </div>
+      <img class="card--bg" :src="dummydata.imageUrl" />
+    </template>
     <div class="card__info">
       <span class="card__info--online">{{
         dummydata.online ? "온라인" : "오프라인"
@@ -257,6 +274,11 @@ function cardHandler() {
   padding: 20px 20px 0 20px;
   overflow: hidden;
   cursor: pointer;
+
+  &.no-image {
+    min-height: 102px;
+  }
+
   &--bg {
     width: 300px;
     height: 200px;
@@ -356,15 +378,15 @@ function cardHandler() {
       padding: 0 0 0 10px;
       box-sizing: border-box;
 
-      &:hover {
-        @include hover;
-      }
       & .arrow {
         position: absolute;
         right: 3px;
         font-size: 12px;
       }
       &.project {
+        &:hover {
+          @include hover;
+        }
         cursor: pointer;
       }
     }

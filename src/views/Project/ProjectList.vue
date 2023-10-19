@@ -9,7 +9,7 @@ import {
 } from "@/components/base";
 </script>
 <template>
-  <article>
+  <article class="wrapper">
     <div class="search">
       <h1 class="search--title">프로젝트</h1>
       <div class="search__input">
@@ -58,16 +58,7 @@ import {
   </div>
 </template>
 <style scoped lang="scss">
-@import "@/views/Study/style.scss";
-@mixin flex {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-article {
-  @include flex;
-  margin: 80px 0;
-}
+@import "@/views/Study/listStyle.scss";
 
 .intro {
   text-align: center;
