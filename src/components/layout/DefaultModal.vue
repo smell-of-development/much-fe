@@ -58,6 +58,7 @@ const styleObject = {
     right: 20px;
     top: 20px;
     cursor: pointer;
+    color: var(--border-gray);
   }
 }
 </style>
