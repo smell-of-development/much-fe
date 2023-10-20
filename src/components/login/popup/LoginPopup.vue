@@ -5,15 +5,13 @@ import DefaultModal from "@/components/layout/DefaultModal.vue";
 import { BaseButton, BaseInput } from "@/components/base";
 import kakao from "@/assets/login/kakao.svg";
 import google from "@/assets/login/google.svg";
-import FindAccountPopup from "@/components/login/popup/FindAccountPopup.vue";
 
 const router = useRouter();
 const route = useRoute();
 
-const emit = defineEmits(["close"]);
+const emit = defineEmits(["close", "find"]);
 
 const { routePath, gotoPage } = routeHandler();
-const { findAccountPopup, findAccountPopupHandler } = findAccountControl();
 
 function routeHandler() {
   const routePath = computed(() => {
@@ -24,19 +22,6 @@ function routeHandler() {
     router.push({ name: pageName });
   }
   return { routePath, gotoPage };
-}
-function findAccountControl() {
-  const findAccountPopup = ref(false);
-
-  function findAccountPopupHandler() {
-    console.log("계정 뜨니");
-    findAccountPopup.value = !findAccountPopup.value;
-    if (findAccountPopup.value) {
-      //여기서 로그인 모달을 닫아야 할 것 같은데
-      console.log("어떻게 닫지");
-    }
-  }
-  return { findAccountPopup, findAccountPopupHandler };
 }
 </script>
 <template>
@@ -73,7 +58,7 @@ function findAccountControl() {
               >회원가입</span
             >
             <span class="vertical-bar"> &#124; </span>
-            <span class="link" @click="findAccountPopupHandler">
+            <span class="link" @click="emit('find')">
               아이디/비밀번호 찾기
             </span>
           </div>
@@ -90,9 +75,6 @@ function findAccountControl() {
           <span>연동된 소셜 계정으로 로그인</span>
         </div>
       </div>
-      <template v-if="findAccountPopup">
-        <FindAccountPopup @close="findAccountPopupHandler" />
-      </template>
     </template>
   </DefaultModal>
 </template>

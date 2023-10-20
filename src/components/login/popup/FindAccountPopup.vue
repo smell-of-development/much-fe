@@ -3,15 +3,13 @@ import { computed, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import DefaultModal from "@/components/layout/DefaultModal.vue";
 import { BaseInputSubmit, BaseButton } from "@/components/base";
-import ChangePwPopup from "@/components/login/popup/ChangePwPopup.vue";
 
-const emit = defineEmits(["close"]);
+const emit = defineEmits(["close", "changePw", "login"]);
 
 const router = useRouter();
 const route = useRoute();
 
 const { routePath, gotoPage } = routeHandler();
-const { changePwPopup, changePwPopupHandler } = changePwControl();
 
 function routeHandler() {
   const routePath = computed(() => {
@@ -24,13 +22,14 @@ function routeHandler() {
   return { routePath, gotoPage };
 }
 
-function changePwControl() {
-  const changePwPopup = ref(false);
+function login() {
+  emit("login");
+  emit("close");
+}
 
-  function changePwPopupHandler() {
-    changePwPopup.value = !changePwPopup.value;
-  }
-  return { changePwPopup, changePwPopupHandler };
+function changePw() {
+  emit("close");
+  emit("changePw");
 }
 </script>
 <template>
@@ -94,14 +93,13 @@ function changePwControl() {
           </span>
         </div>
         <div class="user-card">유저 아이디</div>
-        <BaseButton class="pink" :width="360">로그인 하기</BaseButton>
-        <BaseButton class="pink" :width="360" @click="changePwPopupHandler"
-          >새 비밀번호로 변경하기</BaseButton
-        >
+        <BaseButton class="pink" :width="360" @click="login">
+          로그인 하기
+        </BaseButton>
+        <BaseButton class="pink" :width="360" @click="changePw">
+          새 비밀번호로 변경하기
+        </BaseButton>
       </div>
-      <template v-if="changePwPopup">
-        <ChangePwPopup @close="changePwPopupHandler" />
-      </template>
     </template>
   </DefaultModal>
 </template>

@@ -1,10 +1,13 @@
 <script setup>
-import { computed, ref, watchEffect } from "vue";
+import { computed, ref, reactive } from "vue";
+import BaseUser from "@/components/base/BaseUser.vue";
+import LoginPopup from "@/components/login/popup/LoginPopup.vue";
+import ChangePwPopup from "@/components/login/popup/ChangePwPopup.vue";
+import FindAccountPopup from "@/components/login/popup/FindAccountPopup.vue";
+
 import { useAuthStore } from "@/store/auth";
 import { useRoute, useRouter } from "vue-router";
 import { debounce } from "lodash";
-import LoginPopup from "@/components/login/popup/LoginPopup.vue";
-import BaseUser from "@/components/base/BaseUser.vue";
 
 import logo from "@/assets/icon/logo.svg";
 
@@ -38,14 +41,28 @@ function search() {
 
   return { searchValue, handleSearch };
 }
-const { loginPopup, loginPopupHandler } = loginControl();
+const { popup, popupHandler } = loginControl();
 function loginControl() {
-  const loginPopup = ref(false);
+  const popup = reactive({
+    login: false,
+    changePw: false,
+    find: false,
+  });
 
-  function loginPopupHandler() {
-    loginPopup.value = !loginPopup.value;
+  function popupHandler(popupKey) {
+    Object.entries(popup).forEach(([key]) => {
+      if (popupKey === key) {
+        popup[key] = true;
+      } else {
+        popup[key] = false;
+      }
+    });
   }
-  return { loginPopup, loginPopupHandler };
+
+  return {
+    popup,
+    popupHandler,
+  };
 }
 </script>
 <template>
@@ -81,8 +98,8 @@ function loginControl() {
     </div>
 
     <div class="btn-wrapper">
-      <template v-if="isLoggedIn">
-        <button class="link-btn" @click="loginPopupHandler">로그인</button>
+      <template v-if="!isLoggedIn">
+        <button class="link-btn" @click="popup.login = true">로그인</button>
         <button
           class="link-btn"
           :class="{ action: routePath === 'signup' }"
@@ -113,8 +130,25 @@ function loginControl() {
       </template>
     </div>
   </header>
-  <template v-if="loginPopup">
-    <LoginPopup @close="loginPopupHandler" />
+  <template v-if="popup.login">
+    <LoginPopup
+      @close="popup.login = false"
+      @find="popupHandler('find')"
+      @changePw="popupHandler('changePw')"
+    />
+  </template>
+  <template v-if="popup.changePw">
+    <ChangePwPopup
+      @close="popup.changePw = false"
+      @login="popupHandler('login')"
+    />
+  </template>
+  <template v-if="popup.find">
+    <FindAccountPopup
+      @close="popup.find = false"
+      @login="popupHandler('login')"
+      @changePw="popupHandler('changePw')"
+    />
   </template>
 </template>
 <style scoped lang="scss">
