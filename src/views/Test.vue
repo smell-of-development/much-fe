@@ -9,6 +9,8 @@ import {
   BaseInputSelect,
 } from "@/components/base";
 import Grid from "@/components/layout/Grid.vue";
+import DateCheck from "@/components/layout/DateCheck.vue";
+import Application from "@/components/layout/Application.vue";
 import test1 from "@/assets/image/test.png";
 </script>
 <template>
@@ -43,6 +45,12 @@ import test1 from "@/assets/image/test.png";
         :key="index"
       />
     </Grid>
+  </div>
+  <div style="margin: 20px">
+    <DateCheck />
+  </div>
+  <div style="margin: 20px">
+    <Application />
   </div>
 </template>
 <style lang="scss" scoped></style>

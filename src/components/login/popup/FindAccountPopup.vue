@@ -33,7 +33,7 @@ function changePw() {
 }
 </script>
 <template>
-  <!-- <DefaultModal :width="440" :height="420" @close="emit('close')">
+  <DefaultModal :width="440" :height="420" @close="emit('close')">
     <template #contents>
       <div class="container">
         <h1 class="container--title">내 계정 찾기</h1>
@@ -72,14 +72,23 @@ function changePw() {
             >회원가입</span
           >
           <span class="vertical-bar"> &#124; </span>
-          <span class="link"> 뒤로 가기 </span>
+          <span
+            class="link"
+            @click="
+              () => {
+                emit('close');
+              }
+            "
+          >
+            뒤로 가기
+          </span>
         </div>
       </div>
     </template>
-  </DefaultModal> -->
+  </DefaultModal>
 
   <!-- 내 계정 찾기(아이디 찾기 완료) -->
-  <DefaultModal :width="440" :height="420" @close="emit('close')">
+  <!-- <DefaultModal :width="440" :height="420" @close="emit('close')">
     <template #contents>
       <div class="container">
         <h1 class="container--title">내 계정 찾기</h1>
@@ -88,20 +97,22 @@ function changePw() {
             >010-0000-0000와 일치하는 계정은 아래와 같습니다.
           </span>
           <span class="info--text">
-            비밀번호를 분실한 경우 계정과 동일한 번호로 임시 비밀번호 를 발급해
+            비밀번호를 분실한 경우 계정과 동일한 번호로 임시 비밀번호를 발급해
             드립니다.
           </span>
         </div>
         <div class="user-card">유저 아이디</div>
-        <BaseButton class="pink" :width="360" @click="login">
-          로그인 하기
-        </BaseButton>
-        <BaseButton class="pink" :width="360" @click="changePw">
-          새 비밀번호로 변경하기
-        </BaseButton>
+        <div class="btn-container">
+          <BaseButton class="pink" :width="360" @click="login">
+            로그인 하기
+          </BaseButton>
+          <BaseButton class="pink" :width="360" @click="changePw">
+            새 비밀번호로 변경하기
+          </BaseButton>
+        </div>
       </div>
     </template>
-  </DefaultModal>
+  </DefaultModal> -->
 </template>
 <style scoped lang="scss">
 @mixin flex {
@@ -117,7 +128,7 @@ function changePw() {
   &--title {
     font-weight: 500;
     font-size: 24px;
-    margin: 0 0 20px 0;
+    margin: 10px 0 20px 0;
   }
   &__inputform {
     @include flex;
@@ -132,6 +143,7 @@ function changePw() {
   &--text {
     font-size: 14px;
     font-weight: 400;
+    text-align: center;
     color: #696363;
     margin: 0 2px 0 2px;
   }
@@ -158,10 +170,13 @@ function changePw() {
 
 /* 왜 안 먹히지 */
 .user-card {
-  width: 360;
-  height: 60;
+  width: 360px;
+  height: 60px;
   border: solid 1px var(--border-gray);
 }
-.button-container {
+.btn-container {
+  @include flex;
+  margin-top: 25px;
+  gap: 12px;
 }
 </style>
